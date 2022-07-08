@@ -1,0 +1,11 @@
+.idea/
+venv/
+__pycache__/
+
+.env
+.env.dist
+
+/database/
+
+/app/
+/aiogram_bot/
