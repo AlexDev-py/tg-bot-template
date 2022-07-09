@@ -127,7 +127,8 @@ class HasPermissions(ABC):
             self._set_cached_chat_member(message, chat_member)
         return chat_member
 
-    async def default_no_access_handler(self, message: Message) -> None:
+    @staticmethod
+    async def default_no_access_handler(message: Message) -> None:
         pass
 
     @property
@@ -152,7 +153,8 @@ class BotHasPermissions(HasPermissions):
     def get_target_id(self, message: Message) -> int:
         return message.bot.id
 
-    async def default_no_access_handler(self, message: Message) -> None:
+    @staticmethod
+    async def default_no_access_handler(message: Message) -> None:
         """
         При отсутствии прав у бота.
         """
@@ -173,8 +175,9 @@ class UserHasPermissions(HasPermissions):
     def get_target_id(self, message: Message) -> int:
         return message.from_user.id
 
+    @staticmethod
     @BotHasPermissions(Permission.CAN_DELETE_MESSAGES, on_no_access=None)
-    async def default_no_access_handler(self, message: Message) -> None:
+    async def default_no_access_handler(message: Message) -> None:
         """
         При отсутствии прав у пользователя.
         """
